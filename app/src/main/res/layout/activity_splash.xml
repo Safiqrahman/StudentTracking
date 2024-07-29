@@ -85,7 +85,8 @@
         <TextView
             android:id="@+id/Signup"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="bottom"
             android:text="Sign Up"
             android:textColor="@color/colorprimary"
             android:textSize="16sp"
