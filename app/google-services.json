@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270717453079",
+    "project_id": "studenttracking-2e35a",
+    "storage_bucket": "studenttracking-2e35a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270717453079:android:bfb10c5041402a0ae52d52",
+        "android_client_info": {
+          "package_name": "com.example.spiderindia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ-IaIrYZyw5JCQe3f6ooLJlEr-T1Ag2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
