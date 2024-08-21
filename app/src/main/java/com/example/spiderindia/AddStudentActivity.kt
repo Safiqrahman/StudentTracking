@@ -6,8 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.Manifest
+
+import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -113,7 +118,6 @@ class AddStudentActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Format the selected date and set it to the TextInputEditText
                 calendar.set(selectedYear, selectedMonth, selectedDay)
                 dobEditText.setText(dateFormat.format(calendar.time))
             },
@@ -123,18 +127,32 @@ class AddStudentActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+
+
     private fun checkPermissionsAndOpenGallery() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_PERMISSION)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                openGallery()
+            } else {
+                val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                startActivityForResult(intent, REQUEST_PERMISSION)
+            }
         } else {
-            openGallery()
+            // Android 10 and below
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_PERMISSION)
+            } else {
+                openGallery()
+            }
         }
     }
+
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, REQUEST_IMAGE_GALLERY)
     }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -147,14 +165,20 @@ class AddStudentActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_GALLERY) {
-            selectedImageUri = data?.data
-            studentImageView.setImageURI(selectedImageUri)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE_GALLERY) {
+                selectedImageUri = data?.data
+                studentImageView.setImageURI(selectedImageUri)
+            } else if (requestCode == REQUEST_PERMISSION) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
+                    openGallery()
+                }
+            }
         }
     }
-
     private fun saveStudent(student: Student) {
         val sharedPreferences = getSharedPreferences("student_data", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
