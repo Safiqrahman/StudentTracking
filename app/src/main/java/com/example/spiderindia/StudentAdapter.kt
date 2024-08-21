@@ -24,6 +24,7 @@ class StudentAdapter(private val students: List<Student>, private val context: C
 
         // Format the class value to "6th std"
         holder.studentClass.text = formatClass(student.studentClass)
+        holder.studentSection.text=formatClass(student.studentSection)
 
         if (!student.imageUri.isNullOrEmpty()) {
             try {
@@ -54,6 +55,7 @@ class StudentAdapter(private val students: List<Student>, private val context: C
     class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val studentName: TextView = itemView.findViewById(R.id.StudentName)
         val studentClass: TextView = itemView.findViewById(R.id.Class)
+        val studentSection: TextView = itemView.findViewById(R.id.Section)
         val studentImage: ImageView = itemView.findViewById(R.id.studentImage)
         val forwardArrow: LinearLayout = itemView.findViewById(R.id.forwardArrow)
     }
@@ -75,5 +77,6 @@ class StudentAdapter(private val students: List<Student>, private val context: C
             "12" -> "12th std"
             else -> "$classValue std"
         }
+
     }
 }

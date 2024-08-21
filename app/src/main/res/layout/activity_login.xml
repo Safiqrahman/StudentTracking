@@ -59,25 +59,44 @@
             android:textColorHint="@color/secondorytext"
             android:textSize="16sp"
            />
-        <EditText
-            android:id="@+id/Password"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginEnd="24dp"
-            android:drawablePadding="13dp"
             android:layout_marginStart="24dp"
-            android:fontFamily="@font/roboto_regular"
-            android:letterSpacing="0.01"
-            android:hint="Password"
-            android:lineSpacingExtra="3sp"
-            android:maxLines="1"
-            android:paddingStart="21.6dp"
-            android:paddingEnd="10dp"
-            android:singleLine="true"
-            android:textColor="@color/secondorytext"
-            android:textColorHint="@color/secondorytext"
-            android:textSize="16sp"
-            />
+            android:layout_marginEnd="24dp">
+
+            <EditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawablePadding="13dp"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Password"
+                android:letterSpacing="0.01"
+                android:lineSpacingExtra="3sp"
+                android:maxLines="1"
+                android:paddingStart="21.6dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/secondorytext"
+                android:textColorHint="@color/secondorytext"
+                android:textSize="16sp"
+                android:inputType="textPassword"/>
+
+            <ImageView
+                android:id="@+id/password_toggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="24dp"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_visibility_off" />
+        </RelativeLayout>
         <TextView
             android:id="@+id/forgotpassword"
             android:layout_width="wrap_content"
@@ -93,9 +112,9 @@
             android:id="@+id/signInButton"
             android:layout_width="match_parent"
             android:layout_height="58dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="36dp"
             android:letterSpacing="0.01"
             android:lineSpacingExtra="3sp"
             android:text="LOG IN"
@@ -135,6 +154,7 @@
             android:layout_height="50dp"
             android:gravity="bottom"
             android:text="Sign Up"
+            android:textStyle="bold"
             android:textColor="@color/colorprimary"
             android:textSize="16sp"
             android:layout_marginStart="4dp" />

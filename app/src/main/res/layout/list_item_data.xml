@@ -145,7 +145,23 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
-
+                        <TextView
+                            android:id="@+id/Section"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="0dp"
+                            android:elevation="5dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:outlineProvider="none"
+                            android:text="Section"
+                            android:textAlignment="center"
+                            android:textColor="@color/secondory"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
                         <TextView
                             android:id="@+id/schoolname1"
                             android:layout_width="wrap_content"

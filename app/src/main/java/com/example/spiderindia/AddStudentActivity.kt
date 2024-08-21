@@ -1,6 +1,7 @@
 package com.example.spiderindia
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RadioButton
@@ -18,15 +20,23 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+
 class AddStudentActivity : AppCompatActivity() {
 
     private lateinit var studentImageView: ImageView
     private val REQUEST_IMAGE_GALLERY = 1
     private val REQUEST_PERMISSION = 2
     private var selectedImageUri: Uri? = null
+    private lateinit var dobEditText: TextInputEditText
+    private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US) // Desired date format
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,24 +44,37 @@ class AddStudentActivity : AppCompatActivity() {
 
         val studentName = findViewById<TextInputLayout>(R.id.studentname)
         val schoolName = findViewById<TextInputLayout>(R.id.schoolname)
-        val classSpinner = findViewById<Spinner>(R.id.class_spinner)
-        val sectionSpinner = findViewById<Spinner>(R.id.section_spinner)
+        val classDropdown = findViewById<AutoCompleteTextView>(R.id.class_dropdown)
+        val sectionDropdown = findViewById<AutoCompleteTextView>(R.id.section_dropdown)
         val studentImageButton = findViewById<ImageView>(R.id.imageView1)
         val goBackButton = findViewById<MaterialToolbar>(R.id.goBackButton)
         val saveButton = findViewById<Button>(R.id.Submit)
+        dobEditText = findViewById(R.id.dob_edit_text)
+
+
+        val classes = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
+        val classAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, classes)
+        classDropdown.setAdapter(classAdapter)
+
+        // Populate section dropdown
+        val sections = listOf("A", "B", "C", "D")
+        val sectionAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, sections)
+        sectionDropdown.setAdapter(sectionAdapter)
+
+        // Show dropdown on click
+        classDropdown.setOnClickListener {
+            classDropdown.showDropDown()
+        }
+
+        sectionDropdown.setOnClickListener {
+            sectionDropdown.showDropDown()
+        }
+        dobEditText.setOnClickListener {
+            showDatePickerDialog()
+        }
         studentImageView = findViewById(R.id.imageView)
 
-        // Populate class spinner
-        val classes = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
-        val classAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, classes)
-        classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        classSpinner.adapter = classAdapter
 
-        // Populate section spinner
-        val sections = listOf("A", "B", "C", "D")
-        val sectionAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, sections)
-        sectionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sectionSpinner.adapter = sectionAdapter
         goBackButton.setOnClickListener {
             finish()
         }
@@ -62,8 +85,8 @@ class AddStudentActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             val name = studentName.editText?.text.toString()
             val school = schoolName.editText?.text.toString()
-            val studentClass = classSpinner.selectedItem.toString()
-            val studentSection= classSpinner.selectedItem.toString()
+            val studentClass = classDropdown.text.toString()
+            val studentSection= sectionDropdown.text.toString()
             val imageUri = selectedImageUri?.toString()
 
 
@@ -79,6 +102,25 @@ class AddStudentActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill all fields and select an image", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                // Format the selected date and set it to the TextInputEditText
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+                dobEditText.setText(dateFormat.format(calendar.time))
+            },
+            year, month, day
+        )
+
+        datePickerDialog.show()
     }
 
     private fun checkPermissionsAndOpenGallery() {

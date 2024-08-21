@@ -46,8 +46,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="48dp">
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="36dp">
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
@@ -80,8 +80,8 @@
                android:id="@+id/studentname"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:layout_marginStart="24dp"
-               android:layout_marginEnd="24dp">
+               android:layout_marginStart="12dp"
+               android:layout_marginEnd="12dp">
                <com.google.android.material.textfield.TextInputEditText
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
@@ -95,45 +95,61 @@
 
            </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:text="Class"
-                    android:textSize="16sp"/>
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <Spinner
-                    android:id="@+id/class_spinner"
-                    android:layout_width="wrap_content"
+                <!-- Class Dropdown -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    />
+                    android:textSize="16sp"
+                    android:hint="Class">
 
-                <TextView
-                    android:layout_width="80dp"
+                    <AutoCompleteTextView
+                        android:id="@+id/class_dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:paddingEnd="12dp"
+                        android:paddingStart="12dp"
+                        android:drawableRight="@drawable/path96"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Section Dropdown -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="Section"
+                    android:layout_marginStart="16dp"
+                    android:textSize="16sp"
+                    android:hint="Section">
 
-                    android:textSize="16sp"/>
+                    <AutoCompleteTextView
+                        android:id="@+id/section_dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:focusable="false"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:drawableRight="@drawable/path96"
+                        android:clickable="false"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-                <Spinner
-                    android:id="@+id/section_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-        </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/schoolname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -150,7 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="12dp"
                >
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,13 +201,15 @@
                 android:id="@+id/dob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dob_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="DOB"
-                    android:inputType="date"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:drawableRight="@drawable/calendar"
                     android:maxLines="1"
                     android:textColorHint="@color/secondory"
@@ -205,8 +223,8 @@
                 android:id="@+id/blood"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -222,8 +240,8 @@
                 android:id="@+id/fathername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -239,8 +257,8 @@
                 android:id="@+id/mothername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -257,8 +275,8 @@
                 android:id="@+id/parentcontact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp">
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -276,8 +294,8 @@
                 android:id="@+id/address1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -294,8 +312,8 @@
                 android:id="@+id/address2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -329,8 +347,8 @@
                 android:id="@+id/state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -347,14 +365,15 @@
                 android:id="@+id/zip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Zip"
                     android:inputType="number"
                     android:maxLines="1"
+                    android:maxLength="6"
                     android:textColorHint="@color/secondory"
                     android:textColor="@color/black"
                     android:textSize="16sp">
@@ -366,8 +385,8 @@
                 android:id="@+id/emergencyno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -391,8 +410,8 @@
         android:textColor="@color/white"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp" />
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp" />
        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

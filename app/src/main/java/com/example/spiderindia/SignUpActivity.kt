@@ -8,6 +8,7 @@ import android.text.InputType
 import android.text.TextUtils
 import android.util.Log
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 
@@ -28,6 +29,9 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var phoneNumber: String
     private lateinit var password: String
 
+    private var isPasswordVisible = false
+    private var isConfirmPasswordVisible = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
@@ -41,7 +45,38 @@ class SignUpActivity : AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.Password)
         val confirmPasswordEditText = findViewById<EditText>(R.id.ConfirmPassword)
         val signUpButton = findViewById<MaterialButton>(R.id.signUpButton)
+        val passwordToggle = findViewById<ImageView>(R.id.password_toggle)
+        val confirmPasswordToggle = findViewById<ImageView>(R.id.confirm_password_toggle)
 
+        passwordToggle.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                // Show password
+                passwordEditText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                passwordToggle.setImageResource(R.drawable.ic_visibility)
+            } else {
+                // Hide password
+                passwordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                passwordToggle.setImageResource(R.drawable.ic_visibility_off)
+            }
+            // Move the cursor to the end of the text
+            passwordEditText.setSelection(passwordEditText.text.length)
+        }
+
+        confirmPasswordToggle.setOnClickListener {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible
+            if (isConfirmPasswordVisible) {
+                // Show password
+                confirmPasswordEditText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                confirmPasswordToggle.setImageResource(R.drawable.ic_visibility) // Update icon to "visible"
+            } else {
+                // Hide password
+                confirmPasswordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                confirmPasswordToggle.setImageResource(R.drawable.ic_visibility_off) // Update icon to "hidden"
+            }
+            // Move the cursor to the end of the text
+            confirmPasswordEditText.setSelection(confirmPasswordEditText.text.length)
+        }
         signUpButton.setOnClickListener {
             // Disable the button to prevent multiple clicks
             signUpButton.isEnabled = false

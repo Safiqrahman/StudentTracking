@@ -1,10 +1,12 @@
 package com.example.spiderindia
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.UnderlineSpan
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-
+    private var isPasswordVisible = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -26,6 +28,22 @@ class LoginActivity : AppCompatActivity() {
         val usernameEditText = findViewById<EditText>(R.id.UserName)
         val passwordEditText = findViewById<EditText>(R.id.Password)
         val loginButton = findViewById<MaterialButton>(R.id.signInButton)
+        val passwordToggle = findViewById<ImageView>(R.id.password_toggle)
+
+        passwordToggle.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                // Show password
+                passwordEditText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                passwordToggle.setImageResource(R.drawable.ic_visibility)
+            } else {
+                // Hide password
+                passwordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                passwordToggle.setImageResource(R.drawable.ic_visibility_off)
+            }
+            // Move the cursor to the end of the text
+            passwordEditText.setSelection(passwordEditText.text.length)
+        }
 
         signupTextView.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
